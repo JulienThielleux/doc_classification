@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(0, './../..')
 
-from src.streamlit import preproc
+from src.streamlit.preproc import resize_image, ocr_pytesseract
 
 import streamlit as st
 import os
@@ -248,9 +248,9 @@ if page == pages[3] :
         file_path = "../../data/raw/selected_streamlit/" + file 
         st.image(file_path)
         #preprocessing the image
-        resized_image = preproc.resize_image(file_path, (1000, 1000))
+        resized_image = resize_image(file_path, (1000, 1000))
         #extracting the text
-        extracted_text = preproc.ocr_pytesseract(resized_image)
+        extracted_text = ocr_pytesseract(resized_image)
         st.write(extracted_text)
 
 

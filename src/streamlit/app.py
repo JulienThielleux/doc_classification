@@ -1,15 +1,11 @@
 import sys
-sys.path.insert(0, '../..')
-
-import streamlit as st
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import os
-import seaborn as sns
-import random
+sys.path.insert(0, './../..')
 
 from src.streamlit import preproc
+
+import streamlit as st
+import os
+import random
 
 
 #creating the picture list

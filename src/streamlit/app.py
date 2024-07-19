@@ -1,7 +1,4 @@
-import sys
-sys.path.insert(0, './../..')
-
-from src.streamlit.preproc import resize_image, ocr_pytesseract
+import preproc
 
 import streamlit as st
 import os
@@ -9,7 +6,7 @@ import random
 
 
 #creating the picture list
-folder = "../../data/raw/selected_streamlit"
+folder = "data/raw/selected_streamlit"
 files = os.listdir(folder)
 image_files = [f for f in files if f.endswith(('.tif'))]
 
@@ -95,7 +92,7 @@ if page == pages[1] :
 
     for i, doc in enumerate(documents_classes):
         if cols[i % num_columns].checkbox(doc):
-            cols[i % num_columns].image("../../data/raw/selected_streamlit/" + picture_dict[doc])
+            cols[i % num_columns].image("data/raw/selected_streamlit/" + picture_dict[doc])
 
     #showing a random picture
     st.markdown("****Afficher une image aléatoire:****  ")
@@ -157,7 +154,7 @@ if page == pages[2] :
 
     #priting the architecture of the model
     if st.checkbox("Architecture du modèle"):
-        st.image("../../data/visualization/full_models.png")
+        st.image("data/visualization/full_models.png")
 
 
 
@@ -172,16 +169,16 @@ if page == pages[3] :
     #dimensions de l'image
     if st.checkbox("Dimension de l'image"):
         st.write("Toutes les images ont une hauteur de 1000 pixels, mais la largeur varie.")
-        st.image("../../data/visualization/kde_largeur.png")
+        st.image("data/visualization/kde_largeur.png")
     #rotation de l'image
     if st.checkbox("Rotation de l'image"):
         st.write("La majorité des images sont orientées horizontalement, quelques'un sont retournés de 90°.")
-        st.image("../../data/visualization/kde_orientation.png")
+        st.image("data/visualization/kde_orientation.png")
         #TODO: ajouter un bouton pour voir une image retournée ?
     #resolution de l'image
     if st.checkbox("Résolution de l'image"):
         st.write("Toutes les images ont une resolution de 72 dpi, ce qui est peu pour de l'OCR.")
-        st.image("../../data/raw/selected_streamlit/00399159_9164.tif")
+        st.image("data/raw/selected_streamlit/00399159_9164.tif")
         st.markdown("""
         <style>
         img {
@@ -196,7 +193,7 @@ if page == pages[3] :
     #taille de la police
     if st.checkbox("Taille de la police de charactere"):
         st.write("50% des images ont une taille de police entre 5 et 8 pixels.")
-        st.image("../../data/visualization/boxplot_police.png")
+        st.image("data/visualization/boxplot_police.png")
     st.write("La qualité du texte est très en dessous des characteristiques optimales pour l'OCR. Cela impactera la qualité de l'OCR.")
     #documentation tesseract
     if st.checkbox("Documentation Tesseract"):
@@ -235,9 +232,9 @@ if page == pages[3] :
                 """, unsafe_allow_html=True)
     st.write("#### Résultats")
     if st.checkbox("Score de similarité"):
-        st.image("../../data/visualization/similarity_score.png")
+        st.image("data/visualization/similarity_score.png")
     if st.checkbox("Indice de Jaccard"):
-        st.image("../../data/visualization/jaccard_index.png")
+        st.image("data/visualization/jaccard_index.png")
     st.write("La librairie d'OCR retenue est pytesseract, car elle a donné en moyenne les meilleurs résultats. ")
 
     #exemple de texte extrait
@@ -245,12 +242,12 @@ if page == pages[3] :
     if st.button("Afficher un exemple"):
         #showing a random picture
         file = random.choice(image_files)
-        file_path = "../../data/raw/selected_streamlit/" + file 
+        file_path = "data/raw/selected_streamlit/" + file 
         st.image(file_path)
         #preprocessing the image
-        resized_image = resize_image(file_path, (1000, 1000))
+        resized_image = preproc.resize_image(file_path, (1000, 1000))
         #extracting the text
-        extracted_text = ocr_pytesseract(resized_image)
+        extracted_text = preproc.ocr_pytesseract(resized_image)
         st.write(extracted_text)
 
 

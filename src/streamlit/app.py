@@ -123,32 +123,32 @@ if page == pages[1] :
 
         for i, doc in enumerate(documents_classes):
             if cols[i % num_columns].checkbox(doc):
-                cols[i % num_columns].image("data/raw/RVL-CDIP/" + picture_dict[doc])
+                cols[i % num_columns].image("data/raw/selected_streamlit/" + picture_dict[doc])
 
     with tab2:
         st.write("Les documents scannés ont plusieurs caractéristiques qui pourraient complexifier la sélection du modèle.")
         st.write("Les voici :")
         with st.expander("Luminance"):
             st.write("Les images ne contiennent pas la même proportion de pixels clairs ou foncés")
-            st.image("data/visualization/rvlcdip_dark_pixel_distribution.png")
+            st.image("reports/figures/rvlcdip_dark_pixel_distribution.png")
             st.write("La majorité des images ont entre 1 et 20% de pixels foncés ce qui correspond à du texte ou des images.")
             st.write("Regardons quelques exemples d'images extremement claires ou foncées :")
-            st.image("data/visualization/rvlcdip_dark_pixel_sample.png")
+            st.image("reports/figures/rvlcdip_dark_pixel_sample.png")
         with st.expander("Taille des caractères"):
             st.write("La taille des lettres peut influencer les modèles sélectionnés.")
             st.write("Les images ne contiennent pas la même taille de caractère.")
-            st.image("data/visualization/rvlcdip_letter_size_distribution_raw.png")
+            st.image("reports/figures/rvlcdip_letter_size_distribution_raw.png")
             st.write("La majorité des caractères ont entre 2 et 20 pixels. en enlevant les quelques abérations :")
-            st.image("data/visualization/rvlcdip_letter_size_clean_distribution.png")
+            st.image("reports/figures/rvlcdip_letter_size_clean_distribution.png")
             st.write("Regardons quelques exemples d'images abérantes :")
-            st.image("data/visualization/rvlcdip_max_letter_size.png")
+            st.image("reports/figures/rvlcdip_max_letter_size.png")
             st.write("C'est le modèle de detection de caractère qui voit des bordures comme des caractères, ce qui ne devrait pas influencer le CNN. ")
         with st.expander("Orientation des images"):
             st.write("L'orientation des images peuvent influencer la detection de caractères de l'OCR mais aussi empecher la classification visuelle.")
-            st.image("data/visualization/rvlcdip_dark_pixel_distribution.png")
+            st.image("reports/figures/rvlcdip_dark_pixel_distribution.png")
             st.write("En réorientant les images, on devrait facilité la detection de la classe par le modèle.")
             st.write("Cependant, la detection d'orientation n'est pas parfaite car certains documents possedent des écrits dans différentes directions ou encore de l'écriture manuscrite.")
-            st.image("data/visualization/rvlcdip_rotation_sample.png")
+            st.image("reports/figures/rvlcdip_rotation_sample.png")
 
 
     #montrer une image aléatoire
@@ -195,7 +195,7 @@ if page == pages[2] :
         st.write("Finalement les probabilités renvoyées par les modèles visuels et textuels seront moyennées pour obtenir une prédiction globale.")
     
     with tab2:
-        st.image("data/visualization/full_models.png")
+        st.image("reports/figures/full_models.png")
 
     with tab3:
         st.write("- Le dataset fourni contient près de 400.000 images.")
@@ -237,15 +237,15 @@ if page == pages[3] :
         #dimensions de l'image
         if st.checkbox("Dimension de l'image"):
             st.write("Toutes les images ont une hauteur de 1000 pixels, mais la largeur varie.")
-            st.image("data/visualization/kde_largeur.png")
+            st.image("reports/figures/kde_largeur.png")
         #rotation de l'image
         if st.checkbox("Rotation de l'image"):
             st.write("La majorité des images sont orientées horizontalement, quelques'un sont retournés de 90°.")
-            st.image("data/visualization/kde_orientation.png")
+            st.image("reports/figures/kde_orientation.png")
         #resolution de l'image
         if st.checkbox("Résolution de l'image"):
             st.write("Toutes les images ont une resolution de 72 dpi, ce qui est peu pour de l'OCR.")
-            st.image("data/raw/RVL-CDIP/00399159_9164.tif")
+            st.image("data/raw/selected_streamlit/00399159_9164.tif")
             st.markdown("""
             <style>
             img {
@@ -260,7 +260,7 @@ if page == pages[3] :
         #taille de la police
         if st.checkbox("Taille de la police de caractere"):
             st.write("50% des images ont une taille de police entre 5 et 8 pixels.")
-            st.image("data/visualization/boxplot_police.png")
+            st.image("reports/figures/boxplot_police.png")
         st.write("La qualité du texte est très en dessous des caracteristiques optimales pour l'OCR. Cela impactera la qualité de l'OCR.")
         #documentation tesseract
         if st.checkbox("Documentation Tesseract"):
@@ -304,9 +304,9 @@ if page == pages[3] :
             
         st.write("##### Résultats")
         if st.checkbox("Score de similarité"):
-            st.image("data/visualization/similarity_score.png")
+            st.image("reports/figures/similarity_score.png")
         if st.checkbox("Indice de Jaccard"):
-            st.image("data/visualization/jaccard_index.png")
+            st.image("reports/figures/jaccard_index.png")
         st.write("La librairie d'OCR retenue est pytesseract, car elle a donné en moyenne les meilleurs résultats. ")
             
     #resultats
@@ -379,13 +379,13 @@ if page == pages[4] :
         st.write("Plusieurs modèles de classification de texte ont donnés de bons résultats:")
         #matrice de confusion des modeles
         if st.checkbox("SVC"):
-            st.image("data/visualization/cm_SVC.png")
+            st.image("reports/figures/cm_SVC.png")
             st.write("Le modèle SVC a une accuracy de 0.70.")
         if st.checkbox("Random Forest"):
-            st.image("data/visualization/cm_rf.png")
+            st.image("reports/figures/cm_rf.png")
             st.write("Le modèle Random Forest a une accuracy de 0.67.")
         if st.checkbox("Regression logistique"):
-            st.image("data/visualization/cm_lr.png")
+            st.image("reports/figures/cm_lr.png")
             st.write("Le modèle Regression logistique a une accuracy de 0.68.")
 
     #choix du modele
@@ -458,7 +458,7 @@ if page == pages[5] :
                         Deux couches linéaires permettent de réduire les dimensions pour retrouver nos 16 classes.
                         
                 ''')
-                st.image("data/visualization/CNN_simple_architecture.png")
+                st.image("reports/figures/CNN_simple_architecture.png")
             st.write("""Ce modèle simple constitué de 3 couches neuronales à permis d'obtenir une precision de 56%.
                     Cependant, certaines classes ne sont pas du tout detectées. Ces classes sont souvent des classes hybrides proche d'autres classes.""")
             with st.expander("Matrice de confusion"):
@@ -473,7 +473,7 @@ if page == pages[5] :
                          Cependant le modèle n'arrive pas à extraire d'autres structures aussi finement comme le serait des dossier ou des tableaux de données.
                         
                 ''')
-                st.image("data/visualization/cm_cnn_simple.png")
+                st.image("reports/figures/cm_cnn_simple.png")
 
             # Pros & Cons
             st.write("#### Avantages et Inconvénients")
@@ -508,14 +508,14 @@ if page == pages[5] :
                 st.write('''
                          Le modèle complexe est constitué de 3 coeurs de convolutions double chacun associé à un MaxPooling.                        
                 ''')
-                st.image("data/visualization/Sequentiel_complexe.png")
+                st.image("reports/figures/Sequentiel_complexe.png")
 
                 st.write('''
                          Deux couches linéaires permettent de réduire les dimensions pour retrouver nos 16 classes.
                          Le modèle final est :
                         
                 ''')
-                st.image("data/visualization/CNN_complexe.png")
+                st.image("reports/figures/CNN_complexe.png")
             st.write("""Ce modèle complexe a permis d'obtenir une precision de 33%. Cela est du au faible nombre d'epoques parcourues qui n'a pas permis de réduir suffisamment le coût [15 époques parcourues en 1085 min].
                      Un temps plus long aurait permis une meilleure précision du modèle.""")
             with st.expander("Matrice de confusion"):
@@ -524,7 +524,7 @@ if page == pages[5] :
                          Ceopendant très vite, ce modèle distingue les structures des emails, des dossiers, des publicités.
                         
                 ''')
-                st.image("data/visualization/cm_cnn_complex.png")
+                st.image("reports/figures/cm_cnn_complex.png")
                 st.write("Un plus grand nombre d'itération permettrais d'améliorer la précision mais au détriment d'un temps nassez long. De plus, la complexité du modèle ne semble pas encore detecter des structures et motifs plus petits pour distinguer certains documents.")
             st.write("La complexification et l'entrainement du modèle augmente considérablement le temps d'exploration. Nous explorons les modèles pré-entrainés.")
 
@@ -559,7 +559,7 @@ if page == pages[5] :
             st.write("### Modèle pré-entrainé EfficientNet B0")
             st.write("Nous testons le transfert de connaissance en se basant sur le modèle le plus performant")
             with st.expander("Selection d'un modèle pré-entrainé"):
-                st.image("data/visualization/efficient_net_vs_other_models.png")
+                st.image("reports/figures/efficient_net_vs_other_models.png")
                 st.write('''
                          Le modèle EfficientNet possede la précision la plus forte pour une complexité maitrisée et donc un temps de calcul restreint par rapport à d'autres modeles.                        
                 ''')
@@ -567,7 +567,7 @@ if page == pages[5] :
                 st.write('''
                          EfficientNet possede plusieurs noyaux de convolutions afin de faire ressortir les détails et les motifs différentiant.
                          ''')
-                st.image("data/visualization/Architecture-of-EfficientNet-B0.png")
+                st.image("reports/figures/Architecture-of-EfficientNet-B0.png")
 
                 st.write('''
                          Son architecture assez légère est rapide en calcul, cependant elle necessite des photos au format 224x224 et donc une réduction de taille par rapport à nos images.                        
@@ -579,7 +579,7 @@ if page == pages[5] :
                         Le modèle est tres fort sur les elements tres distincts mais sous performe sur les rapports scientifiques qui contiennent plusieurs structures similaires à d'autres documents.
                         
                 ''')
-                st.image("data/visualization/cm_efnetB0.png")
+                st.image("reports/figures/cm_efnetB0.png")
             st.write("Nous explorons des améliorations du modèles pré-entrainés afin d'accroitre sa précision au global.")
 
             # Pros & Cons
@@ -617,13 +617,13 @@ if page == pages[5] :
             with col1:
                 st.write("#### Amélioration de la partie Neuronale")
                 st.write("On ajoute une couche neuronales supplémentaire afin de faire ressortir de nouveaux détails et renforcer le modèle")
-                st.image("data/visualization/EffNetB0_NAddOn.png")
+                st.image("reports/figures/EffNetB0_NAddOn.png")
                 st.write("Elle accroît la complexité d'EfficientNet B0 tout en conservant le pré-entrainement des couches précédentes")
                 
             with col2:
                 st.write("#### Amélioration de la partie Linéaire")
                 st.write("On ajoute une couche linéaire qui élimine les informations faibles afin de renforcer les signaux dominants")
-                st.image("data/visualization/EffNetB0_LAddOn.png")
+                st.image("reports/figures/EffNetB0_LAddOn.png")
                 st.write("Elle remplace la partie linéaire d'EfficientNet B0")
                 
                 
@@ -637,7 +637,7 @@ if page == pages[5] :
                             Le modèle se renforce la où il est déja fort ce qui augmente la précision sans augmenter le F1-score.
                             
                     ''')
-                    st.image("data/visualization/cm_efnetB0_NAO.png")
+                    st.image("reports/figures/cm_efnetB0_NAO.png")
                 st.markdown("---")    
                 # Pros & Cons
                 st.write("#### Avantages et Inconvénients")
@@ -664,7 +664,7 @@ if page == pages[5] :
                             Le modèle augmente sa précision sur les éléments les moins biens detectés.
                             
                     ''')
-                    st.image("data/visualization/cm_efnetB0_LAO.png")
+                    st.image("reports/figures/cm_efnetB0_LAO.png")
                 st.markdown("---")    
                 # Pros & Cons
                 st.write("#### Avantages et Inconvénients")
@@ -710,9 +710,9 @@ if page == pages[5] :
 
                 # Afficher l'image en fonction de l'état du bouton
                 if st.session_state.show_image1:
-                    st.image('data/visualization/EffnetB0.png', caption='Architecture EfficientNet B0')
+                    st.image('reports/figures/EffnetB0.png', caption='Architecture EfficientNet B0')
                 else:
-                    st.image('data/visualization/EffnetB1.png', caption='Architecture EfficientNet B1')
+                    st.image('reports/figures/EffnetB1.png', caption='Architecture EfficientNet B1')
 
                 st.write('''
                          Son architecture permet d'accoître la précision en detectant plus de détails sans accroître fortement le temps d'entrainement.
@@ -725,7 +725,7 @@ if page == pages[5] :
                         Le modèle augmente sa précision au global mais conserve quelques lacunes.
                         
                 ''')
-                st.image("data/visualization/cm_efnet_B1.png")
+                st.image("reports/figures/cm_efnet_B1.png")
             st.write("Nous décidons de partir sur ce modèle qui s'est montré le plus performant dans le temps imparti.")
 
             # Pros & Cons
@@ -885,11 +885,11 @@ if page == pages[6] :
 
         #montrer l'architecture du voting
         if st.checkbox("Visualisation du Voting"):
-            st.image("data/visualization/voting_models.png")
+            st.image("reports/figures/voting_models.png")
 
     #resultats
     with tab2:
-        st.image("data/visualization/cm_voting.png")
+        st.image("reports/figures/cm_voting.png")
         st.write("Pour rappel le meilleur modèle CNN avait une accuracy de 0.82. Le meilleur modèle textuel avait une accuracy de 0.70.")
         st.write("Le modèle de voting a une accuracy de 0.8475, ce qui est une amélioration significative.")
 
@@ -1070,7 +1070,7 @@ if page == pages[7] :
         Les limites materiels et temporelles sont tres vite apparus comme facteurs limitant d'itérations sur le CNN. 
         La parallelisation de l'entrainement aurait permis d'iterer sur le CNN multi-couche ou bien tester des modèles EfficientNet plus complexes B2 à B7.
         """
-        st.image("data/visualization/EfficientNet_comparison.png")
+        st.image("reports/figures/EfficientNet_comparison.png")
         st.write("La parallelisation permet de diviser jusqu'à 4 fois le temps d'entrainement.")
         st.table(df) 
         st.write("Ainsi un modèle EfficientNet plus complexe permet d'accroître la résolution de l'image en entrée et donc le niveau de détail.")
@@ -1083,7 +1083,7 @@ if page == pages[7] :
         La qualité des documents rendait difficile la lecture par la libairie d'ocr. La librairie utilisée produisait très souvent des mots inexactes. 
         
         """
-        st.image("data/visualization/OCR_error.png")
+        st.image("reports/figures/OCR_error.png")
         """
         
         Une possibilité serait de transformer les mots inconnus par leur plus proche voisin lexical.
